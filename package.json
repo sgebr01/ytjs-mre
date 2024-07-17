@@ -22,7 +22,8 @@
     "react-native-url-polyfill": "^2.0.0",
     "text-encoding-polyfill": "^0.6.7",
     "typescript": "~5.3.3",
-    "web-streams-polyfill": "^4.0.0"
+    "web-streams-polyfill": "^4.0.0",
+    "youtubei.js": "10.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

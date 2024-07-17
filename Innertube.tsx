@@ -35,6 +35,7 @@ global.CustomEvent = CustomEvent as any;
 
 // === END === Making Youtube.js work
 
-import Innertube from './youtubei.js/dist/src/platform/react-native.js';
+// import Innertube from './youtubei.js/dist/src/platform/react-native.js';
+import Innertube from 'youtubei.js';
 
 export default Innertube;

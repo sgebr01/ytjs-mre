@@ -5,22 +5,74 @@ import {
   FlatList,
   Image,
   LogBox,
+  Modal,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import innertube from "./Engine";
-import { Log, Platform } from "./youtubei.js/bundle/react-native";
+import innertube from "./Innertube";
+import { Log, Platform } from "youtubei.js";
 
 const App = () => {
   LogBox.ignoreLogs(["Require cycle:"]);
   const [yt, setYT] = useState(null);
   const [info, setInfo] = useState(null);
-  const [showLogs, setShowLogs] = useState(false);
+  const [showLogs, setShowLogs] = useState(true);
   const [logArray, setLogArray] = useState([]);
   const dimensions = Dimensions.get("screen");
+
+  const load = () => {
+    innertube
+      .create({
+        generate_session_locally: true,
+        retrieve_player: false,
+        fetch: async (input, init) => {
+          let url;
+          if (input instanceof URL) {
+            url = input.toString();
+          } else {
+            url = input.url;
+          }
+
+          const start = performance.now();
+          console.log("Started the Request to", url);
+          console.log("Request Details", input, init)
+          const response = await Platform.shim.fetch(input, init);
+          const end = performance.now();
+
+          const clone = response.clone();
+          const responseText = await clone.text();
+          console.log("Input:", JSON.stringify(input));
+
+          let log = `${(end - start).toFixed(1)}ms | ${input.method} | ${url}`;
+          setLogArray((prevArray) => [
+            ...prevArray,
+            { info: log, response: responseText },
+          ]);
+
+          return response;
+        },
+      })
+      .then((yt) => {
+        setYT(yt);
+        yt.getBasicInfo("A5w-dEgIU1M").then((newInfo) => {
+          setInfo(newInfo);
+        });
+      });
+  };
+
+  const refresh = () => {
+    setLogArray((prevArray) => [
+      ...prevArray,
+      { info: "REFRESHED", response: "_________" },
+    ]);
+    setYT(null);
+    setInfo(null);
+
+    load();
+  };
 
   useEffect(() => {
     if (yt === null && info === null) {
@@ -30,32 +82,8 @@ const App = () => {
         Log.Level.DEBUG,
         Log.Level.ERROR
       );
-      innertube
-        .create({
-          fetch: async (input, init) => {
-            let url;
-            if (input instanceof URL) {
-              url = input.toString();
-            } else {
-              url = input.url;
-            }
 
-            const start = performance.now();
-            const response = await Platform.shim.fetch(input, init);
-            const end = performance.now();
-
-            let log = `${(end - start).toFixed(1)}ms | ${url}`;
-            setLogArray((prevArray) => [...prevArray, log]);
-
-            return response;
-          },
-        })
-        .then((yt) => {
-          setYT(yt);
-          yt.getBasicInfo("A5w-dEgIU1M").then((newInfo) => {
-            setInfo(newInfo);
-          });
-        });
+      load();
     }
   }, []);
 
@@ -88,20 +116,64 @@ const App = () => {
         </View>
       )}
 
-      <TouchableOpacity style={styles.button} onPress={() => {setShowLogs(true)}}>
+      <TouchableOpacity style={styles.secondaryButton} onPress={refresh}>
+        <Text style={styles.secondaryButtonText}>Refresh</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          setShowLogs(true);
+        }}
+      >
         <Text style={styles.buttonText}>View Request Logs</Text>
       </TouchableOpacity>
 
       {showLogs ? (
         <View style={[styles.logContainer, { width: dimensions.width * 0.9 }]}>
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Text style={{ fontWeight: "bold", fontSize: 25 }}>Logs</Text>
-            <TouchableOpacity style={{backgroundColor: "black", padding: 5, paddingHorizontal: 10, borderRadius: 5}} onPress={() => {setShowLogs(false)}}>
-              <Text style={{color: "white", fontWeight: "bold", fontSize: 15}}>Close Logs</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "black",
+                padding: 5,
+                paddingHorizontal: 10,
+                borderRadius: 5,
+              }}
+              onPress={() => {
+                setShowLogs(false);
+              }}
+            >
+              <Text
+                style={{ color: "white", fontWeight: "bold", fontSize: 15 }}
+              >
+                Close Logs
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <FlatList data={logArray} style={{marginTop: 10}} renderItem={(data) => {return (<Text style={{paddingVertical: 10}}>{data.item}</Text>)}} />
+          <TouchableOpacity style={styles.secondaryButton} onPress={refresh}>
+            <Text style={styles.secondaryButtonText}>Refresh</Text>
+          </TouchableOpacity>
+
+          <FlatList
+            data={logArray}
+            style={{ marginTop: 10 }}
+            renderItem={(data) => {
+              return (
+                <View style={{ paddingVertical: 10 }}>
+                  <Text>{data.item.info}</Text>
+                  {/* <Text numberOfLines={40}>{data.item.response}</Text> */}
+                </View>
+              );
+            }}
+          />
         </View>
       ) : null}
     </View>
@@ -165,10 +237,23 @@ const styles = StyleSheet.create({
     paddingVertical: 3.5,
     borderRadius: 5,
   },
+  secondaryButtonText: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 17.5,
+  },
   buttonText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 17.5,
+  },
+  secondaryButton: {
+    width: "100%",
+    paddingVertical: 12.5,
+    backgroundColor: "#F0F0F0",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
   },
   button: {
     width: "100%",
@@ -180,7 +265,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    opacity: 0.8,
+    color: "gray",
   },
   title: {
     fontWeight: "bold",
