@@ -13,7 +13,7 @@ import {
   View,
 } from "react-native";
 import innertube from "./Innertube";
-import { Log, Platform } from "youtubei.js";
+import { Log, Platform } from "./youtubei.js/dist/src/platform/lib.js";
 
 const App = () => {
   LogBox.ignoreLogs(["Require cycle:"]);
