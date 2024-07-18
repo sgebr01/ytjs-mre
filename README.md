@@ -23,19 +23,21 @@ Install Packages with NPM
   npm install
 ```
 
-Then start the server with npm start
+Then, update the package.json for the library `jintr` in node_modules. Add the field `"main": "./dist/index.d.ts` to `node_modules/jintr/package.json`
+
+
+Start the server with npm start
 
 ```bash
    npm start
 ```
 
-Then you need to update the package.json for the library `jintr` in node_modules. Add the field `"main": "./dist/index.d.ts` 
 
-Then to connect the development APK on your phone to the computer you will need to scan the QR Code that appears with your phone's camera app.
+Then to connect the development APK on your phone to the computer you will need to scan the QR Code that appears in your terminal with your phone's camera app.
 
-From there, it should connect and you can edit any files you'd like and it will instantly reload. All of the app logic is located in `app.tsx`, and the actual API interaction with the youtubei.js library is in the `load()` function that is located there. The react native shims are in the Innertube function.
+From there, it should connect and you can edit any files you'd like and it will instantly reload. All of the app logic is located in `app.tsx`, and the actual API interaction with the youtubei.js library is in the `load()` function within it. The react native shims are in the `Innertube.tsx` file.
 
-The youtubei.js library is in the youtubei.js folder (not in node_modules) since I had to update some shims to make it work with react native
+The youtube.js library is in the youtubei.js folder (not in node_modules) since I had to update some shims to make it work with react native
 
 
-If you have any questions or any issues arise setting this up, feel free to also contact me through sggebr1@gmail.com or through the original issue
+If you have any questions or any issues arise setting this up, feel free to contact me through sggebr1@gmail.com or through the original issue
