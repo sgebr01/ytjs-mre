@@ -19,7 +19,7 @@ const App = () => {
   LogBox.ignoreLogs(["Require cycle:"]);
   const [yt, setYT] = useState(null);
   const [info, setInfo] = useState(null);
-  const [showLogs, setShowLogs] = useState(true);
+  const [showLogs, setShowLogs] = useState(false);
   const [logArray, setLogArray] = useState([]);
   const dimensions = Dimensions.get("screen");
 
@@ -65,8 +65,7 @@ const App = () => {
 
   const refresh = () => {
     setLogArray((prevArray) => [
-      ...prevArray,
-      { info: "REFRESHED", response: "_________" },
+      ...prevArray, { info: "REFRESHED", response: "" },
     ]);
     setYT(null);
     setInfo(null);
@@ -158,7 +157,7 @@ const App = () => {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.secondaryButton} onPress={refresh}>
+          <TouchableOpacity style={[styles.secondaryButton, {borderColor: "black", borderWidth: 1, marginTop: 10}]} onPress={refresh}>
             <Text style={styles.secondaryButtonText}>Refresh</Text>
           </TouchableOpacity>
 
