@@ -6,7 +6,6 @@ import {
   Image,
   LogBox,
   StatusBar,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -91,7 +90,7 @@ const App = () => {
     }
   }, []);
 
-  // View Syntax
+  // Views for the app
   return (
     <View style={[styles.container, { padding: StatusBar.currentHeight }]}>
       {info ? (
