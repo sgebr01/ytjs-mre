@@ -24,6 +24,7 @@ const App = () => {
   const [logArray, setLogArray] = useState([]);
   const dimensions = Dimensions.get("screen");
 
+  // Load Function for Innertube
   const load = () => {
     innertube
       .create({
@@ -64,6 +65,7 @@ const App = () => {
       });
   };
 
+  // Refresh Button Function
   const refresh = () => {
     setLogArray((prevArray) => [
       ...prevArray, { info: "REFRESHED", response: "" },
@@ -74,7 +76,9 @@ const App = () => {
     load();
   };
 
+  // Effect that runs when you open the app
   useEffect(() => {
+    // Null check to prevent needless loads 
     if (yt === null && info === null) {
       Log.setLevel(
         Log.Level.INFO,
@@ -87,6 +91,7 @@ const App = () => {
     }
   }, []);
 
+  // View Syntax
   return (
     <View style={[styles.container, { padding: StatusBar.currentHeight }]}>
       {info ? (
