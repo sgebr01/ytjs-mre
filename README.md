@@ -5,7 +5,7 @@ Minimal Reproducible Example of network issue in YouTube.js for issue #690 on Lu
 
    https://drive.google.com/file/d/1yBQ5MdLuyqMG-0VCueRHeJFkWbM0UWio/view?usp=drive_link
 
-Download and Install this (will differ based on phone). The phone may warn you about it being potentially harmful, this is just since it's an APK from online.
+Download and Install this to your phone (steps will differ slightly based on phone). The phone may warn you about it being potentially harmful, this is just since it's an APK from online.
 
 All of the code that interacts with YouTube.js lives in the App.tsx file (which is just typescript). The platform shims that make it work are in Innertube.tsx and the actual library is in youtubei.js.
 ## Get Started
