@@ -35,7 +35,7 @@ Then to connect the development APK on your phone to the computer you will need 
 
 From there, it should connect and you can edit any files you'd like and it will instantly reload. All of the app logic is located in `app.tsx`, and the actual API interaction with the youtubei.js library is in the `load()` function that is located there. The react native shims are in the Innertube function.
 
-The youtubei.js library is in the youtubei.js folder (I had to update some shims to make it work with react native)
+The youtubei.js library is in the youtubei.js folder (not in node_modules) since I had to update some shims to make it work with react native
 
 
 If you have any questions or any issues arise setting this up, feel free to also contact me through sggebr1@gmail.com or through the original issue
