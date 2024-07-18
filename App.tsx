@@ -5,7 +5,6 @@ import {
   FlatList,
   Image,
   LogBox,
-  Modal,
   StatusBar,
   StyleSheet,
   Text,
@@ -13,7 +12,8 @@ import {
   View,
 } from "react-native";
 import innertube from "./Innertube";
-import { Log, Platform } from "./youtubei.js/dist/src/platform/lib.js";
+// import { Log, Platform } from "./youtubei.js/dist/src/platform/lib.js";
+import { Log, Platform } from "./youtubei.js/bundle/react-native";
 
 const App = () => {
   LogBox.ignoreLogs(["Require cycle:"]);

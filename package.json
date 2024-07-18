@@ -15,7 +15,6 @@
     "expo": "~51.0.20",
     "expo-dev-client": "~4.0.20",
     "expo-status-bar": "~1.12.1",
-    "jintr": "^2.0.0",
     "react": "18.2.0",
     "react-native": "0.74.3",
     "react-native-mmkv": "^2.12.2",

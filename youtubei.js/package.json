@@ -4,7 +4,6 @@
   "description": "A wrapper around YouTube's private API. Supports YouTube, YouTube Music, YouTube Kids and YouTube Studio (WIP).",
   "type": "module",
   "types": "./dist/src/platform/lib.d.ts",
-  "main": "./bundle/react-native.js",
   "typesVersions": {
     "*": {
       "agnostic": [
@@ -81,7 +80,7 @@
     "dist": "./dist"
   },
   "scripts": {
-    "test": "npx jest --verbose", 
+    "test": "npx jest --verbose",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint --fix ./src",
     "clean": "npx rimraf ./dist/src ./dist/package.json ./bundle/browser.js ./bundle/browser.js.map ./bundle/browser.min.js ./bundle/browser.min.js.map ./bundle/node.cjs ./bundle/node.cjs.map ./bundle/cf-worker.js ./bundle/cf-worker.js.map ./bundle/react-native.js ./bundle/react-native.js.map ./deno",
