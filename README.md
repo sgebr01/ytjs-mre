@@ -11,7 +11,7 @@ All of the code that interacts with YouTube.js lives in the App.tsx file (which 
 ## Get Started
 
 
-Clone this Repo
+Clone this Repo (to your computer)
 
 ```bash
   git clone https://github.com/sgebr01/ytjs-mre
@@ -35,7 +35,7 @@ Start the server with npm start
 
 Then to connect the development APK on your phone to the computer you will need to scan the QR Code that appears in your terminal with your phone's camera app.
 
-From there, it should connect and you can edit any files you'd like and it will instantly reload. All of the app logic is located in `app.tsx`, and the actual API interaction with the youtubei.js library is in the `load()` function within it. The react native shims are in the `Innertube.tsx` file.
+From there, it should connect and you can edit any files you'd like and it will instantly reload. All of the app logic is located in `app.tsx`, and the API interaction with youtubei.js is in the `load()` function within it.
 
 The youtube.js library is in the youtubei.js folder (not in node_modules) since I had to update some shims to make it work with react native
 
